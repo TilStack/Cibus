@@ -5,49 +5,36 @@ import 'package:cibus_multi_plateforme/views/Activities/profile.dart';
 import 'package:cibus_multi_plateforme/views/Activities/restaurant_list.dart';
 import 'package:cibus_multi_plateforme/views/Activities/setting.dart';
 import 'package:cibus_multi_plateforme/views/dashboard.dart';
-import 'package:cibus_multi_plateforme/views/widgets/bottom_navigationBar.dart';
 import 'package:cibus_multi_plateforme/views/widgets/my_cart_page.dart';
-import 'package:cibus_multi_plateforme/views/widgets/restaurant_card.dart';
 import 'package:flutter/material.dart';
 
 import '../models/restaurant.dart';
-import 'Activities/restaurant_details.dart';
-import 'widgets/restaurant_home_card.dart';
-
-
-
 
 class HomePage extends StatefulWidget {
-
   @override
   _HomePageState createState() => _HomePageState();
 }
-class _HomePageState extends State<HomePage> {
 
+class _HomePageState extends State<HomePage> {
   late List<Restaurant> _recipes;
-  bool _isLoading = true;
+  bool isLoading = true;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     getRestaurant();
   }
 
-  Future<void> getRestaurant() async{
+  Future<void> getRestaurant() async {
     _recipes = await RestaurantApi.getRestaurant();
-    setState((){
-      _isLoading = false;
+    setState(() {
+      isLoading = false;
     });
     print(_recipes);
   }
 
   int currentTab = 0;
-  final List<Widget> screens = [
-    Dashboard(),
-    Chat(),
-    Profile(),
-    Setting()
-  ];
+  final List<Widget> screens = [Dashboard(), Chat(), Profile(), Setting()];
   AppBar? appBar = null;
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -56,15 +43,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: PageStorage(
-          child: currentScreen,
-          bucket: bucket,
-        ),
+      body: PageStorage(
+        child: currentScreen,
+        bucket: bucket,
+      ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.shopping_cart,color: Colors.black45,),
+        child: Icon(
+          Icons.shopping_cart,
+          color: Colors.black45,
+        ),
         onPressed: () {
           // Navigator.push(context, MaterialPageRoute(builder: (context)=>RestaurantDetails(_recipes[index]))
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> MyCartPage()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MyCartPage()));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -80,36 +71,31 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MaterialButton(
-                    minWidth: 60,
+                      minWidth: 60,
                       onPressed: () {
-                        setState((){
-                          currentScreen = Dashboard();
-                          currentTab = 0;
-                        },
-
+                        setState(
+                          () {
+                            currentScreen = Dashboard();
+                            currentTab = 0;
+                          },
                         );
-
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                              Icons.dashboard,
-                              color: currentTab ==0
+                          Icon(Icons.dashboard,
+                              color: currentTab == 0
                                   ? kPrimaryColor
-                                  : Colors.grey
-                          ),
+                                  : Colors.grey),
                           Text(
-                              'Home',
+                            'Home',
                             style: TextStyle(
                                 color: currentTab == 0
                                     ? kPrimaryColor
-                                    : Colors.grey
-                            ),
+                                    : Colors.grey),
                           )
                         ],
-                      )
-                  ),
+                      )),
                 ],
               ),
               //Right Tab bar icons
@@ -119,40 +105,34 @@ class _HomePageState extends State<HomePage> {
                   MaterialButton(
                       minWidth: 60,
                       onPressed: () {
-                        setState((){
-                          currentScreen = RestaurantList();
-                          currentTab = 2;
-                        },
-
+                        setState(
+                          () {
+                            currentScreen = RestaurantList();
+                            currentTab = 2;
+                          },
                         );
-
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                              Icons.bookmark_sharp,
-                              color: currentTab ==2
+                          Icon(Icons.bookmark_sharp,
+                              color: currentTab == 2
                                   ? kPrimaryColor
-                                  : Colors.grey
-                          ),
+                                  : Colors.grey),
                           Text(
                             'Market',
                             style: TextStyle(
                                 color: currentTab == 2
                                     ? kPrimaryColor
-                                    : Colors.grey
-                            ),
+                                    : Colors.grey),
                           )
                         ],
-                      )
-                  ),
+                      )),
                 ],
               )
             ],
           ),
         ),
-
       ),
     );
   }
@@ -170,8 +150,6 @@ class _HomePageState extends State<HomePage> {
   //     ],
   //   )
   // }
-
-
 }
 
 

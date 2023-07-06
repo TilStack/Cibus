@@ -1,7 +1,4 @@
-import 'package:cibus_multi_plateforme/views/Activities/restaurant_details.dart';
 import 'package:flutter/material.dart';
-
-
 
 /// Defines the title font used for [ListTile] descendants of a [ListTileTheme].
 ///
@@ -42,8 +39,6 @@ enum ListTileControlAffinity {
 }
 
 class RestaurantNewCard extends StatelessWidget {
-
-
   /// Creates a list tile.
   ///
   /// If [isThreeLine] is true, then [subtitle] must not be null.
@@ -84,7 +79,7 @@ class RestaurantNewCard extends StatelessWidget {
     this.cookTime,
     this.rating,
     this.thumbnailUrl,
-  }) : assert(isThreeLine != null),
+  })  : assert(isThreeLine != null),
         assert(enabled != null),
         assert(selected != null),
         assert(autofocus != null),
@@ -306,15 +301,11 @@ class RestaurantNewCard extends StatelessWidget {
   /// if it's not null and to [Colors.transparent] if it's null.
   final Color? selectedTileColor;
 
-
   final bool? enableFeedback;
-
 
   final double? horizontalTitleGap;
 
-
   final double? minVerticalPadding;
-
 
   final double? minLeadingWidth;
   final String? nom;
@@ -323,7 +314,8 @@ class RestaurantNewCard extends StatelessWidget {
   final String? cookTime;
   final String? thumbnailUrl;
 
-  static Iterable<Widget> divideTiles({ BuildContext? context, required Iterable<Widget> tiles, Color? color }) {
+  static Iterable<Widget> divideTiles(
+      {BuildContext? context, required Iterable<Widget> tiles, Color? color}) {
     assert(tiles != null);
     assert(color != null || context != null);
     tiles = tiles.toList();
@@ -351,52 +343,61 @@ class RestaurantNewCard extends StatelessWidget {
   }
 
   Color? _iconColor(ThemeData theme, ListTileThemeData tileTheme) {
-    if (!enabled)
-      return theme.disabledColor;
+    if (!enabled) return theme.disabledColor;
 
     if (selected) {
-      return selectedColor ?? tileTheme.selectedColor ?? theme.listTileTheme.selectedColor ?? theme.colorScheme.primary;
+      return selectedColor ??
+          tileTheme.selectedColor ??
+          theme.listTileTheme.selectedColor ??
+          theme.colorScheme.primary;
     }
 
-    final Color? color = iconColor ?? tileTheme.iconColor ?? theme.listTileTheme.iconColor;
-    if (color != null)
-      return color;
+    final Color? color =
+        iconColor ?? tileTheme.iconColor ?? theme.listTileTheme.iconColor;
+    if (color != null) return color;
 
     switch (theme.brightness) {
       case Brightness.light:
-      // For the sake of backwards compatibility, the default for unselected
-      // tiles is Colors.black45 rather than colorScheme.onSurface.withAlpha(0x73).
+        // For the sake of backwards compatibility, the default for unselected
+        // tiles is Colors.black45 rather than colorScheme.onSurface.withAlpha(0x73).
         return Colors.black45;
       case Brightness.dark:
         return null; // null - use current icon theme color
     }
   }
 
-  Color? _textColor(ThemeData theme, ListTileThemeData tileTheme, Color? defaultColor) {
-    if (!enabled)
-      return theme.disabledColor;
+  Color? _textColor(
+      ThemeData theme, ListTileThemeData tileTheme, Color? defaultColor) {
+    if (!enabled) return theme.disabledColor;
 
     if (selected) {
-      return selectedColor ?? tileTheme.selectedColor ?? theme.listTileTheme.selectedColor ?? theme.colorScheme.primary;
+      return selectedColor ??
+          tileTheme.selectedColor ??
+          theme.listTileTheme.selectedColor ??
+          theme.colorScheme.primary;
     }
 
-    return textColor ?? tileTheme.textColor ?? theme.listTileTheme.textColor ?? defaultColor;
+    return textColor ??
+        tileTheme.textColor ??
+        theme.listTileTheme.textColor ??
+        defaultColor;
   }
 
   bool _isDenseLayout(ThemeData theme, ListTileThemeData tileTheme) {
     return dense ?? tileTheme.dense ?? theme.listTileTheme.dense ?? false;
   }
 
-
   TextStyle _subtitleTextStyle(ThemeData theme, ListTileThemeData tileTheme) {
     final TextStyle textStyle = theme.textTheme.bodyText2!;
-    final Color? color = _textColor(theme, tileTheme, theme.textTheme.caption!.color);
+    final Color? color =
+        _textColor(theme, tileTheme, theme.textTheme.caption!.color);
     return _isDenseLayout(theme, tileTheme)
         ? textStyle.copyWith(color: color, fontSize: 12.0)
         : textStyle.copyWith(color: color);
   }
 
-  TextStyle _trailingAndLeadingTextStyle(ThemeData theme, ListTileThemeData tileTheme) {
+  TextStyle _trailingAndLeadingTextStyle(
+      ThemeData theme, ListTileThemeData tileTheme) {
     final TextStyle textStyle = theme.textTheme.bodyText2!;
     final Color? color = _textColor(theme, tileTheme, textStyle.color);
     return textStyle.copyWith(color: color);
@@ -404,25 +405,28 @@ class RestaurantNewCard extends StatelessWidget {
 
   Color _tileBackgroundColor(ThemeData theme, ListTileThemeData tileTheme) {
     final Color? color = selected
-        ? selectedTileColor ?? tileTheme.selectedTileColor ?? theme.listTileTheme.selectedTileColor
+        ? selectedTileColor ??
+            tileTheme.selectedTileColor ??
+            theme.listTileTheme.selectedTileColor
         : tileColor ?? tileTheme.tileColor ?? theme.listTileTheme.tileColor;
     return color ?? Colors.transparent;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ListTileThemeData tileTheme = ListTileTheme.of(context);
-    final IconThemeData iconThemeData = IconThemeData(color: _iconColor(theme, tileTheme));
+    final IconThemeData iconThemeData =
+        IconThemeData(color: _iconColor(theme, tileTheme));
     final Set<MaterialState> states = <MaterialState>{
-      if (!enabled || (onTap == null && onLongPress == null)) MaterialState.disabled,
+      if (!enabled || (onTap == null && onLongPress == null))
+        MaterialState.disabled,
       if (selected) MaterialState.selected,
     };
-    final MouseCursor effectiveMouseCursor = MaterialStateProperty.resolveAs<MouseCursor?>(mouseCursor, states)
-        ?? tileTheme.mouseCursor?.resolve(states)
-        ?? MaterialStateMouseCursor.clickable.resolve(states);
+    final MouseCursor effectiveMouseCursor =
+        MaterialStateProperty.resolveAs<MouseCursor?>(mouseCursor, states) ??
+            tileTheme.mouseCursor?.resolve(states) ??
+            MaterialStateMouseCursor.clickable.resolve(states);
 
     return InkWell(
       customBorder: shape ?? tileTheme.shape,
@@ -437,7 +441,7 @@ class RestaurantNewCard extends StatelessWidget {
       enableFeedback: enableFeedback ?? tileTheme.enableFeedback ?? true,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        width: MediaQuery.of(context).size.width /1.2,
+        width: MediaQuery.of(context).size.width / 1.2,
         height: 200,
         decoration: BoxDecoration(
           color: Colors.black,
@@ -481,11 +485,8 @@ class RestaurantNewCard extends StatelessWidget {
             ),
           ],
         ),
-
       ),
-
     );
-
   }
 }
 
@@ -502,4 +503,3 @@ Iterable<_ListTileSlot> get slots => _ListTileSlot.values;
 
 @override
 bool hitTestSelf(Offset position) => true;
-
