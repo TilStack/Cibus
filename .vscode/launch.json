@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "cibus_multi_plateforme",
+            "cwd": "MultiPlateforme\\cibus_multi_plateforme",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "cibus_multi_plateforme (profile mode)",
+            "cwd": "MultiPlateforme\\cibus_multi_plateforme",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "cibus_multi_plateforme (release mode)",
+            "cwd": "MultiPlateforme\\cibus_multi_plateforme",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
